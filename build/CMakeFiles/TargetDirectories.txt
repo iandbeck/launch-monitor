@@ -1,5 +1,0 @@
-/Users/ianbeck/Projects/c++/launch-monitor/build/CMakeFiles/edit_cache.dir
-/Users/ianbeck/Projects/c++/launch-monitor/build/CMakeFiles/rebuild_cache.dir
-/Users/ianbeck/Projects/c++/launch-monitor/build/receiver/CMakeFiles/launch_monitor_receiver.dir
-/Users/ianbeck/Projects/c++/launch-monitor/build/receiver/CMakeFiles/edit_cache.dir
-/Users/ianbeck/Projects/c++/launch-monitor/build/receiver/CMakeFiles/rebuild_cache.dir

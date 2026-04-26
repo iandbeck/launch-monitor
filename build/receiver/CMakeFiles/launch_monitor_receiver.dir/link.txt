@@ -1,1 +1,0 @@
-/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/launch_monitor_receiver.dir/main.cpp.o CMakeFiles/launch_monitor_receiver.dir/UDPReceiver.cpp.o -o launch_monitor_receiver
