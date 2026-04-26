@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/ianbeck/Projects/c++/launch-monitor/build/cmake_install.cmake",
+		"/Users/ianbeck/Projects/c++/launch-monitor/build/receiver/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
