@@ -1,0 +1,16 @@
+idf_component_register(
+    SRCS 
+        "main.cpp"
+        "hal/WiFiManager.cpp"
+        "hal/UdpSender.cpp"
+        "utils/Utils.cpp"
+    INCLUDE_DIRS 
+        "hal"
+        "utils"
+    REQUIRES
+        esp_wifi
+        esp_event
+        esp_netif
+        nvs_flash
+        lwip
+)

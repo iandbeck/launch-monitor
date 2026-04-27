@@ -1,0 +1,17 @@
+config WIFI_SSID
+    string "WiFi SSID"
+    default "myssid"
+    help 
+        WiFi network name. 
+
+config WIFI_PASSWORD
+    string "WiFi Password"
+    default "mypassword"
+    help
+        WiFi network password.
+
+config MAC_IP
+    string "Macbook IP Address"
+    default "192.168.1.100"
+    help 
+        IP address of the Macbook running the receiver.
