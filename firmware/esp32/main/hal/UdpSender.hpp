@@ -1,6 +1,7 @@
 #pragma once 
 
 #include <string> 
+#include <cstddef>
 
 /** 
  * @brief Sends UDP packets to a remote host
@@ -22,7 +23,7 @@ public:
      * @brief Sends a UDP payload. 
      * @param data  Payload to send.
      */
-    void send(std::string& data);
+    void send(const char* data, size_t length);
 
 private: 
     std::string host_; 

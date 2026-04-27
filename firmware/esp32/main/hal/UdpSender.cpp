@@ -29,15 +29,15 @@ UDPSender::~UDPSender()
     }
 }
 
-void UDPSender::send(std::string& data) {
+void UDPSender::send(const char* data, size_t length) {
     sockaddr_in dest{}; 
     dest.sin_family = AF_INET; 
     dest.sin_port = htons(port_); 
     inet_pton(AF_INET, host_.c_str(), &dest.sin_addr);
 
     int result = sendto(sock_, 
-                        data.c_str(),
-                        data.size(), 
+                        data,
+                        length, 
                         0, 
                         (sockaddr*)&dest, 
                         sizeof(dest));

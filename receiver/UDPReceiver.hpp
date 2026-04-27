@@ -16,7 +16,7 @@
 
 class UDPReceiver {
 public: 
-    using PacketCallback = std::function<void(const std::string&)>;
+    using PacketCallback = std::function<void(const uint8_t*, size_t)>;
 
     /**
      * @brief Constructs the receiver and binds to the given port.
@@ -33,9 +33,13 @@ public:
     void start(); 
 
 private: 
-    std::string receive(); 
+    void receive(); 
 
     int port_;
     int sock_;
     PacketCallback callback_; 
+
+    // Fixed size stack buffer
+    static constexpr size_t BUFFER_SIZE = 256;
+    uint8_t buffer_[BUFFER_SIZE];
 };

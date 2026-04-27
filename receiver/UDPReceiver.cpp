@@ -1,4 +1,4 @@
-#include "UDPReceiver.hpp"
+#include "UdpReceiver.hpp"
 
 #include <iostream>
 #include <string>
@@ -39,30 +39,28 @@ UDPReceiver::~UDPReceiver() {
     }
 }
 
-void UDPReceiver::start() {
-    while (true) {
-        std::string packet = receive();
-        callback_(packet); 
-    }
-}
-
 // ** Currently deals only with strings, will change later ** 
-std::string UDPReceiver::receive() {
-    char buffer[1024];
+void UDPReceiver::receive() {
     sockaddr_in sender{};
     socklen_t sender_len = sizeof(sender); 
 
-    ssize_t bytes = recvfrom(sock_,
-        buffer, 
-        sizeof(buffer) - 1,
-        0, 
-        (sockaddr*)&sender,
-        &sender_len);
+    ssize_t bytes = recvfrom(   sock_,
+                                buffer_, 
+                                BUFFER_SIZE,
+                                0, 
+                                (sockaddr*)&sender,
+                                &sender_len );
 
     if (bytes < 0) {
         throw std::runtime_error("Failed to receive data on port " + std::to_string(port_));
     }
 
-    buffer[bytes] = '\0';
-    return std::string(buffer); 
+    // Pass raw buffer pointer and length 
+    callback_(buffer_, static_cast<size_t>(bytes));
+}
+
+void UDPReceiver::start() {
+    while (true) {
+        receive(); 
+    }
 }
