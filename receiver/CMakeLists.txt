@@ -1,12 +1,12 @@
 # Define executable and its source files
 add_executable(launch_monitor_receiver
-    main.cpp
-    UdpReceiver.cpp
-    ShotReceiver.cpp
+    src/main.cpp
+    src/ShotReceiver.cpp
+    src/UdpReceiver.cpp
 )
 
 target_include_directories(launch_monitor_receiver PRIVATE 
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/common
 )
 

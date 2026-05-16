@@ -2,6 +2,7 @@
 #include "ShotData.hpp"
 
 #include <iostream> 
+#include <cstring> 
 
 void ShotReceiver::onPacket(const uint8_t* data, size_t length) 
 {

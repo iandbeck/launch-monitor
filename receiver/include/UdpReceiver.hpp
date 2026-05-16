@@ -2,6 +2,7 @@
 
 #include <string> 
 #include <functional>
+#include <cstdint>
 
 /**
  * @brief Listens on a UDP port and dispatches incoming packets to a callback.
