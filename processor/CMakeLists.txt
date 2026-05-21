@@ -1,16 +1,17 @@
 # Define executable and its source files
-add_executable(launch_monitor_receiver
+add_executable(processor
     src/main.cpp
     src/ShotReceiver.cpp
     src/UdpReceiver.cpp
+    src/SerialReader.cpp
 )
 
-target_include_directories(launch_monitor_receiver PRIVATE 
+target_include_directories(processor PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/common
 )
 
-target_compile_options(launch_monitor_receiver PRIVATE 
+target_compile_options(processor PRIVATE 
     -Wall
     -Wextra
     -Wpedantic
