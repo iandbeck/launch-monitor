@@ -3,6 +3,7 @@ idf_component_register(
         "main.cpp"
         "hal/WiFiManager.cpp"
         "hal/UdpSender.cpp"
+        "hal/UartDriver.cpp"
         "utils/Utils.cpp"
     INCLUDE_DIRS 
         "hal"
@@ -13,6 +14,8 @@ idf_component_register(
         esp_event
         esp_netif
         esp_timer
+        esp_driver_uart
+        esp_driver_gpio
         nvs_flash
         lwip
 )
