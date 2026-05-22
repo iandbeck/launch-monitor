@@ -1,27 +1,28 @@
-#include "UDPSender.hpp"
+#include "UdpSender.hpp"
 
 #include <stdexcept> 
 #include "lwip/sockets.h"
 #include "lwip/netdb.h"
 #include "esp_log.h"
+#include "esp_system.h"
 
-static const char* TAG = "UDPSender";
+static const char* TAG = "UdpSender";
 
-UDPSender::UDPSender(const std::string& host, int port) 
+UdpSender::UdpSender(const std::string& host, int port) 
     : host_(host), port_(port), sock_(-1) 
 { 
     sock_ = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (sock_ < 0)
     {
-        ESP_LOGE(TAG, "Failed to create UDP socket");
+        ESP_LOGE(TAG, "Failed to create Udp socket");
         // Restart the device
         esp_restart();
     }
 
-    ESP_LOGI(TAG, "UDP sender ready -> %s:%d", host_.c_str(), port_);
+    ESP_LOGI(TAG, "Udp sender ready -> %s:%d", host_.c_str(), port_);
 }
 
-UDPSender::~UDPSender() 
+UdpSender::~UdpSender() 
 {
     if (sock_ >= 0) 
     {
@@ -29,7 +30,7 @@ UDPSender::~UDPSender()
     }
 }
 
-void UDPSender::send(const char* data, size_t length) {
+void UdpSender::send(const char* data, size_t length) {
     sockaddr_in dest{}; 
     dest.sin_family = AF_INET; 
     dest.sin_port = htons(port_); 

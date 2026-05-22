@@ -3,7 +3,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "WiFiManager.hpp"
-#include "UDPSender.hpp"
+#include "UdpSender.hpp"
 #include "esp_wifi.h"
 #include "sdkconfig.h"
 
@@ -19,7 +19,7 @@ extern "C" void app_main() {
     WiFiManager::connect(CONFIG_WIFI_SSID, CONFIG_WIFI_PASSWORD);
 
     // Create sender targeting receiver
-    UDPSender sender(CONFIG_MAC_IP, UDP_PORT); 
+    UdpSender sender(CONFIG_MAC_IP, UDP_PORT); 
 
 
     auto random_float = [](float min, float max) -> float {

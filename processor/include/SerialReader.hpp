@@ -6,8 +6,9 @@ public:
     ~SerialReader();
 
     /**
-     * @brief Opens the serial port and starts reading data. 
-     * This will block until the port is closed. 
+     * @brief Test reader to output serial data directly.
+     * without the use of ESP32 Microcontroller. This will 
+     * block until the file is closed. 
      */
     void start(std::string file);
 
