@@ -11,9 +11,9 @@
 
 
 // Constuctor
-UDPReceiver::UDPReceiver(int port, PacketCallback callback) 
+UdpReceiver::UdpReceiver(int port, PacketCallback callback) 
     : port_(port), sock_(-1), callback_(callback) {
-    // Create UDP socket
+    // Create Udp socket
     sock_ = socket(AF_INET, SOCK_DGRAM, 0);
     if (sock_ < 0) {
         throw std::runtime_error("Failed to create socket");
@@ -33,14 +33,14 @@ UDPReceiver::UDPReceiver(int port, PacketCallback callback)
     std::cout << "Receiver listening on port " << port_ << std::endl;
 }
 
-UDPReceiver::~UDPReceiver() {
+UdpReceiver::~UdpReceiver() {
     if (sock_ >= 0) {
         close(sock_);
     }
 }
 
 // ** Currently deals only with strings, will change later ** 
-void UDPReceiver::receive() {
+void UdpReceiver::receive() {
     sockaddr_in sender{};
     socklen_t sender_len = sizeof(sender); 
 
@@ -59,7 +59,7 @@ void UDPReceiver::receive() {
     callback_(buffer_, static_cast<size_t>(bytes));
 }
 
-void UDPReceiver::start() {
+void UdpReceiver::start() {
     while (true) {
         receive(); 
     }

@@ -4,23 +4,23 @@
 #include <cstddef>
 
 /** 
- * @brief Sends UDP packets to a remote host
+ * @brief Sends Udp packets to a remote host
  * Thin wrapper around lwIP's BSD socket API. 
  * Intended as the transport layer for golf 
  * data from the ESP32 to the receiver. 
  */
-class UDPSender {
+class UdpSender {
 public: 
     /** 
      * @brief Constructs sender targeting the given host and port. 
      * @param   host    Destination IP address as a string e.g. "192.168.1.100"
-     * @param   port    Destination UDP port
+     * @param   port    Destination Udp port
      */
-    UDPSender(const std::string& host, int port);
-    ~UDPSender(); 
+    UdpSender(const std::string& host, int port);
+    ~UdpSender(); 
 
     /**
-     * @brief Sends a UDP payload. 
+     * @brief Sends a Udp payload. 
      * @param data  Payload to send.
      */
     void send(const char* data, size_t length);

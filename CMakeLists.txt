@@ -7,4 +7,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Firmware is built using ESP32 toolchain
-add_subdirectory(receiver)  
+add_subdirectory(processor)  
