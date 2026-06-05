@@ -5,6 +5,10 @@
 
 #include <string>
 
+static constexpr const char* RX_TASK_TAG = "UartDriver [RX]"; 
+static constexpr const char* TX_TASK_TAG = "UartDriver [TX]"; 
+static constexpr int RX_BUF_SIZE = 64; 
+
 
 void UartDriver::init() 
 {
@@ -19,13 +23,19 @@ void UartDriver::init()
 
     uart_param_config(UART_NUM_2, &uart_config); 
     uart_set_pin(UART_NUM_2, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
-    uart_driver_install(UART_NUM_2, RX_BUF_SIZE * 2, 0, 0, NULL, 0); 
+    // Ensure ring buffer is large enough to ensure 
+    // no bytes are dropped between reads (RX_BUF_SIZE * 4)
+    uart_driver_install(UART_NUM_2, RX_BUF_SIZE * 4, 0, 0, NULL, 0);
+
+    // Set UART rx timeout so that we receive data quicker
+    uart_set_rx_timeout(UART_NUM_2, 10); // 10 character times of inactivity
 }
 
 void UartDriver::startRxTask() 
 {
+    ESP_LOGI(RX_TASK_TAG, "Starting data receive from doppler module");
     xTaskCreate(
-        rxTask, 
+        receiveRxData, 
         RX_TASK_TAG, 
         4096, 
         this, 
@@ -34,19 +44,44 @@ void UartDriver::startRxTask()
     );
 }
 
-void UartDriver::rxTask(void *arg)
+void UartDriver::receiveRxData(void *arg)
 {
     auto *self = static_cast<UartDriver *>(arg); 
-    esp_log_level_set(self->RX_TASK_TAG, ESP_LOG_INFO); 
-    uint8_t data[self->RX_BUF_SIZE + 1]; // + 1 for safe null termination
+    uint8_t data[RX_BUF_SIZE]; 
+    size_t dataIndex = 0;
+    char c;
     
     while(1) 
     {
-        int rxBytes = uart_read_bytes(UART_NUM_2, data, self->RX_BUF_SIZE, portMAX_DELAY); 
+        // Continually monitor radar module speed output
+        int rxBytes = uart_read_bytes(UART_NUM_2, &c, 1, portMAX_DELAY); 
         if (rxBytes > 0) 
         {
-            data[rxBytes] = '\0'; // null terminate buffer
-            ESP_LOGI(self->RX_TASK_TAG, "Read %d bytes '%s'", rxBytes, data);
+            if (c == '\n')
+            {
+                // Print buffer data 
+                data[dataIndex] = '\0';
+                ESP_LOGD(RX_TASK_TAG, "%s", data);
+
+                // Reset buffer position
+                dataIndex = 0; 
+            } else
+            {
+                // Append data to buffer
+                data[dataIndex] = c; 
+                dataIndex++;
+            }
+        } else 
+        {
+            ESP_LOGE(RX_TASK_TAG, "ERROR: Received -1 from uart read"); 
         }
     }
+}
+
+// Sends string over UART to connected device
+void UartDriver::sendCommand(std::string cmd)
+{
+    std::string uartCmd = cmd + "\r\n"; // Ensure correct line endings
+    ESP_LOGI(TX_TASK_TAG, "Sending '%s' to doppler module", cmd.c_str());
+    uart_write_bytes(UART_NUM_2, uartCmd.c_str(), uartCmd.size());
 }

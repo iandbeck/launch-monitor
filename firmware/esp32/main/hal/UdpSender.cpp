@@ -30,7 +30,7 @@ UdpSender::~UdpSender()
     }
 }
 
-void UdpSender::send(const char* data, size_t length) {
+void UdpSender::send(const uint8_t* data, size_t length) {
     sockaddr_in dest{}; 
     dest.sin_family = AF_INET; 
     dest.sin_port = htons(port_); 

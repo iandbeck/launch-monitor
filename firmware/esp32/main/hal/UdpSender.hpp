@@ -23,7 +23,7 @@ public:
      * @brief Sends a Udp payload. 
      * @param data  Payload to send.
      */
-    void send(const char* data, size_t length);
+    void send(const uint8_t* data, size_t length);
 
 private: 
     std::string host_; 

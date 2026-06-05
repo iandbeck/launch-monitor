@@ -2,5 +2,5 @@
 
 class Utils {
 public: 
-    void ScanForNetworks(); 
+    static void ScanForNetworks(); 
 };
