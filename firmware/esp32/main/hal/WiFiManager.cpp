@@ -10,6 +10,9 @@
 #include "esp_netif.h"
 #include "nvs_flash.h"
 
+// Debug 
+#include "Utils.hpp"
+
 static const char* TAG = "WiFiManager";
 static EventGroupHandle_t wifi_event_group; 
 static const int CONNECTED_BIT = BIT0;

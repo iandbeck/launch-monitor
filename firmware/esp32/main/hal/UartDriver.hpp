@@ -3,6 +3,7 @@
 #include <cstdint>
 
 #include "driver/gpio.h"
+#include "UdpSender.hpp"
 
 #define RXD_PIN (GPIO_NUM_16)
 #define TXD_PIN (GPIO_NUM_17)
@@ -16,13 +17,13 @@ public:
      * @brief Constructs UART configuration
      * @param   baudRate   Baud rate for UART communicatikon 
      */
-    UartDriver(int b) : baudRate(b) {};
+    UartDriver(int b, UdpSender* s) : baudRate(b),  sender(s) {};
     void init();
     void startRxTask();
+    void sendCommand(std::string cmd); // In public for testing only
 
 private: 
     int baudRate;
-    static constexpr const char* RX_TASK_TAG = "RX_TASK"; 
-    static constexpr int RX_BUF_SIZE = 128; 
-    static void rxTask(void *arg); 
+    UdpSender* sender; 
+    static void receiveRxData(void *arg); 
 };
