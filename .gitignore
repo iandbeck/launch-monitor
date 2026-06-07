@@ -5,6 +5,7 @@
 
 # CMake (Receiver)
 _build/
+build/
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
@@ -16,7 +17,6 @@ firmware/esp32/build/
 firmware/esp32/dependencies.lock
 firmware/esp32/managed_components/
 
-# Compiled outputs
 # Compiled outputs
 *.o
 *.a
