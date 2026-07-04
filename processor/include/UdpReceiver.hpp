@@ -1,6 +1,6 @@
-#pragma once 
+#pragma once
 
-#include <string> 
+#include <string>
 #include <functional>
 #include <cstdint>
 
@@ -15,9 +15,10 @@
  * @note Not thread-safe. start() blocks the calling thread indefinitely.
  */
 
-class UdpReceiver {
-public: 
-    using PacketCallback = std::function<void(const uint8_t*, size_t)>;
+class UdpReceiver
+{
+public:
+    using PacketCallback = std::function<void(const uint8_t *, size_t)>;
 
     /**
      * @brief Constructs the receiver and binds to the given port.
@@ -25,22 +26,23 @@ public:
      * @param callback  Function called with raw packet data on each receive.
      * @throws std::runtime_error if socket creation or bind fails.
      */
-    UdpReceiver(int port, PacketCallback callback); 
-    ~UdpReceiver(); 
+    UdpReceiver(int port, PacketCallback callback);
+    ~UdpReceiver();
 
-    /** 
+    /**
      * @brief Blocks forever, calling the callback for each incoming packet.
      */
-    void start(); 
+    void start();
 
-private: 
-    void receive(); 
+    static constexpr size_t RX_BUFFER_SIZE = 512;
+
+private:
+    void receive();
 
     int port_;
     int sock_;
-    PacketCallback callback_; 
+    PacketCallback callback_;
 
     // Fixed size stack buffer
-    static constexpr size_t BUFFER_SIZE = 256;
-    uint8_t buffer_[BUFFER_SIZE];
+    uint8_t buffer_[RX_BUFFER_SIZE];
 };

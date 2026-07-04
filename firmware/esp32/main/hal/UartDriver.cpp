@@ -64,10 +64,8 @@ void UartDriver::receiveRxData(void *arg)
 {
     auto *self = static_cast<UartDriver *>(arg);
     uint8_t data[RX_BUF_SIZE];
-    size_t dataIndex = 0;
     size_t bytesAvailable = 0;
     size_t rxBytes = 0;
-    // char c;
 
     while (1)
     {
@@ -79,9 +77,11 @@ void UartDriver::receiveRxData(void *arg)
             rxBytes = uart_read_bytes(UART_NUM_2, data, bytesAvailable, portMAX_DELAY);
             if (rxBytes > 0)
             {
-                // Append null character to end of rx data (overwrite \n)
-                data[rxBytes] = '\0';
-                ESP_LOGD(RX_TASK_TAG, "%s", data);
+                // // Append null character to end of rx data (overwrite \n)
+                // data[rxBytes] = '\0';
+                // ESP_LOGD(RX_TASK_TAG, "%s", data);
+                ESP_LOGD(RX_TASK_TAG, "Received > 0 bytes");
+                self->sender->send(data, rxBytes);
             }
         }
         else

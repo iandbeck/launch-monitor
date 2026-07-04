@@ -6,33 +6,34 @@
 #include <string>
 #include <thread>
 
-int main() {
+int main()
+{
 
-    try {
-        ShotReceiver shotReceiver; 
+    try
+    {
+        ShotReceiver shotReceiver;
 
         // Create UDP receiver on port 5005, passing received packets to shotReceiver
-        UdpReceiver udpReceiver(5005, [&shotReceiver](const uint8_t* data, size_t length) {
-            shotReceiver.onPacket(data, length); 
-        });
+        UdpReceiver udpReceiver(5005, [&shotReceiver](const uint8_t *data, size_t length)
+                                { shotReceiver.onPacket(data, length); });
         // Start UDP thread
-        std::thread udpThread([&udpReceiver] {
-            udpReceiver.start();
-        }); 
+        std::thread udpThread([&udpReceiver]
+                              { udpReceiver.start(); });
 
-        SerialReader serialReader; 
-        // Start Serial thread
-        std::thread serialThread([&serialReader] {
-            serialReader.start("/dev/ttyACM0");
-        });
+        // SerialReader serialReader;
+        // // Start Serial thread
+        // std::thread serialThread([&serialReader] {
+        //     serialReader.start("/dev/ttyACM0");
+        // });
 
         // Wait for threads to finish
         udpThread.join();
-        serialThread.join(); 
-        
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl; 
-        return 1; 
+        // serialThread.join();
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
     }
 
     return 0;

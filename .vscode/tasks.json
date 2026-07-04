@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Open Project Terminals",
+            "dependsOn": [
+                "Processor Terminal",
+                "Firmware Terminal"
+            ],
+            "dependsOrder": "parallel",
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Processor Terminal",
+            "type": "shell",
+            "command": "cd ${workspaceFolder} && echo 'Processor Terminal Ready' && exec bash",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Firmware Terminal",
+            "type": "shell",
+            "command": "cd ${workspaceFolder}/firmware/esp32 && source $HOME/Software/tools/esp/esp-idf/export.sh && echo 'IDF Ready' && exec bash",
+            "options": {
+                "cwd": "${workspaceFolder}/firmware/esp32"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+            },
+            "problemMatcher": []
+        }
+    ]
+}

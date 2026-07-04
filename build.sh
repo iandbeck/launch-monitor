@@ -12,7 +12,7 @@ mkdir -p "$BUILD_DIR"
 
 # Configure and build
 cd "$BUILD_DIR"
-cmake ..
+cmake .. -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++
 make
 
 echo "Build complete!"

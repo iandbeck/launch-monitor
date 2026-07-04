@@ -1,4 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "enabled",
-    "idf.currentSetup": "/home/ibeck/Software/tools/esp/esp-idf"
+    "idf.currentSetup": "/home/ibeck/Software/tools/esp/esp-idf",
+    "cmake.configureOnOpen": false,
+    "cmake.buildDirectory": "${workspaceFolder}/_build",
+    "cmake.generator": "Unix Makefiles"
 }

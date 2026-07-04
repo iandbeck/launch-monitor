@@ -26,17 +26,12 @@ extern "C" void app_main()
 
     // Start UART receive task from radar module
     UartDriver uartDriver(RADAR_BAUD_RATE, &sender);
-
-    // Always reset to initial flash memory in case of error
-    uartDriver.sendCommand("A.");
     uartDriver.startRxTask();
 
-    vTaskDelay(pdMS_TO_TICKS(5000));
-    uartDriver.sendCommand("GC");
-    vTaskDelay(pdMS_TO_TICKS(4000));
+    // Configure esp and send rolling buffer trigger
+    uartDriver.sendCommand("PA");
+    vTaskDelay(pdMS_TO_TICKS(3000));
     uartDriver.triggerPulse();
-    vTaskDelay(pdMS_TO_TICKS(1000));
-    uartDriver.sendCommand("GS");
 
     while (true)
     {
